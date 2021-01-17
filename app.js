@@ -11,7 +11,7 @@ async function getAnimes(url) {
   const res = await fetch(url);
   const data = await res.json();
 
-  showAnimes(data.top.slice(0, 16));
+  showAnimes(data.top ? data.top.slice(0, 16) : data.results.slice(0, 16));
 }
 
 function showAnimes(animes){
@@ -31,22 +31,20 @@ function showAnimes(animes){
         `;
      main.appendChild(animeEl);
   })
-} 
+}
 
 
 /* Form */
 
-const SEARCH_API = `https://api.jikan.moe/v3/search/anime?q=${search_query.value}&order_by=title&sort=asc&limit=15`;
-    
+const SEARCH_API = `https://api.jikan.moe/v3/search/anime?order_by=title&sort=asc&limit=16`;
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const searchTerm = search_query.value;
+  if (search_query.value) {
+    getAnimes(`${SEARCH_API}&q=${search_query.value}`);
 
-  if (searchTerm && searchTerm !== "") {
-    getAnimes(SEARCH_API + searchTerm);
-
-    search.value = "";
+    search_query.value = "";
   } else {
     window.location.reload();
   }
