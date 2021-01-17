@@ -66,6 +66,7 @@ main {
   position: relative;
   overflow: hidden;
   border-radius: 3px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .anime img {
@@ -108,19 +109,12 @@ main {
   color: red;
 }
 
-.overview {
-  background-color: #fff;
-  padding: 2rem;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  max-height: 100%;
-  transform: translateY(101%);
-  overflow-y: auto;
-  transition: transform 0.3s ease-in;
-}
 
-.anime:hover .overview {
-  transform: translateY(0);
-}
+ img { 
+    
+		transition: 0.4s;
+ }
+ .anime img:hover {
+  transform: scale(1.5);
+  
+} 

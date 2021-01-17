@@ -18,15 +18,16 @@ function showAnimes(animes){
   main.innerHTML = "";
 
   animes.forEach((anime) => {
-     const { title, image_url, url } = anime
-
+     const { title, image_url, url, score } = anime
+console.log(anime);
      const animeEl = document.createElement("div");
      animeEl.classList.add("anime");
 
      animeEl.innerHTML = `
-            <img src="${image_url}" alt="${title}">
+            <a href=${url} target="_blank"><img src="${image_url}" alt="${title}"></a>
             <div class="anime-info">
               <a href=${url} target="_blank"><h3>${title}</h3></a>
+              <p><span class="${getClassByRate(score)}">${score}</span></p>
             </div>
         `;
      main.appendChild(animeEl);
@@ -44,8 +45,20 @@ form.addEventListener("submit", (e) => {
   if (search_query.value) {
     getAnimes(`${SEARCH_API}&q=${search_query.value}`);
 
+  
     search_query.value = "";
   } else {
     window.location.reload();
   }
 });
+  
+
+function getClassByRate(vote) {
+    if(vote >= 8) {
+        return 'green'
+    } else if(vote >= 5) {
+        return 'orange'
+    } else {
+        return 'red'
+    }
+  }
